@@ -7,7 +7,6 @@
 #include <sstream>
 #include <math.h>
 #include "setup.hpp"
-#include "settings.cpp"
 #include "Button.h"
 
 using namespace sf;
