@@ -13,6 +13,7 @@ class Button
 		/** Default constructor */
 		//Button(sf::Window winPrm);
 		Button();
+		Button(int x1, int y1, int x2, int y2);
 		/** Default destructor */
 		~Button();
 
@@ -63,13 +64,17 @@ class Button
 		} btnCoord;
 
 	private:
-		int m_Width; //!< Member variable "m_Width"
-		int m_Height; //!< Member variable "m_Height"
-		sf::Color m_Color;
-		std::string m_Text; //!< Member variable "m_Text"
-		float m_Posx, m_Posy;
+		int buttonWidth; //!< Member variable "m_Width"
+		int buttonHeight; //!< Member variable "m_Height"
+		sf::Color buttonColor;
+		std::string buttonText; //!< Member variable "m_Text"
+		float posX, posY;
 		void *ptr;
-
+		sf::Image btnImg;
+		sf::Texture btnTex;
+		sf::Sprite btnSprite;
+		sf::Text txt;
+		sf::Font btnFont;
 };
 
 #endif // BUTTON_H

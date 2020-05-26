@@ -2,70 +2,74 @@
 
 using namespace sf;
 
-Image btnImg;
-Texture btnTex;
-Sprite btnSprite;
-Text txt;
-Font btnFont;
+
 
 
 Button::Button()
 {
 
-	m_Height = NULL;
-	m_Width = NULL;
-	m_Text = "";
-	m_Color = Color(0, 0, 255);
-	btnCoord.x1 = m_Posx;
-	btnCoord.y1 = m_Posy;
-	btnCoord.x2 = m_Posx + m_Width;
-	btnCoord.y2 = m_Posy + m_Height;
+	buttonHeight = NULL;
+	buttonWidth = NULL;
+	buttonText = "";
+	buttonColor = Color(0, 0, 255);
+	btnCoord.x1 = posX;
+	btnCoord.y1 = posY;
+	btnCoord.x2 = m_Posx + buttonWidth;
+	btnCoord.y2 = posY + buttonHeight;
 }
 
+Button::Button(int x1, int y1, int x2, int y2, sf::Color c, char* buttonLabel) {
+	btnCoord.y1 = x1;
+	btnCoord.x1 = y1;
+	btnCoord.x2 = x2;
+	btnCoord.y2 = y2;
+	buttonText = buttonLabel;
+	buttonColor = c;
+}
 void Button::setWidth(int val)
 {
-	m_Width = val;
-	btnCoord.x2 = m_Posx + m_Width;
+	buttonWidth = val;
+	btnCoord.x2 = posX + buttonWidth;
 }
 
 void Button::setHeight(int val)
 {
-	m_Height = val;
-	btnCoord.y2 = m_Posy + m_Height;
+	buttonHeight = val;
+	btnCoord.y2 = posY + buttonHeight;
 }
 
 int Button::getWidth()
 {
-	return m_Width;
+	return buttonWidth;
 }
 
 int Button::getHeight()
 {
-	return m_Height;
+	return buttonHeight;
 }
 
 float Button::getPosx()
 {
-	return m_Posx;
+	return posX;
 }
 
 float Button::getPosy()
 {
-	return m_Posy;
+	return posY;
 }
 
 void Button::setText(const sf::String& str, const sf::Font& fnt)
 {
 
-	m_Text = str;
+	buttonText = str;
 	btnFont = fnt;
 	//String str = m_Text;
 	txt.setString(str);
 	int len = str.getSize();
-	int chrSize = (m_Height - 2);
+	int chrSize = (buttonHeight - 2);
 	txt.setCharacterSize(chrSize);
 	txt.setFont(fnt);
-	txt.move(m_Posx + ((m_Width/2) - (len/2)*chrSize), (m_Posy - 2));
+	txt.move(posX + ((buttonWidth/2) - (len/2)*chrSize), (posY - 2));
 }
 
 bool Button::onClickListener(sf::RenderWindow& RwWin)
@@ -86,30 +90,30 @@ bool Button::onClickListener(sf::RenderWindow& RwWin)
 
 void Button::move(float x, float y)
 {
-	m_Posx = m_Posx + x;
-	m_Posy = m_Posy + y;
-	btnCoord.x1 = m_Posx;
-	btnCoord.y1 = m_Posy;
+	posX = posX + x;
+	posY = posY + y;
+	btnCoord.x1 = posX;
+	btnCoord.y1 = posY;
 	btnSprite.move(x,y);
 }
 
 void Button::draw(sf::RenderWindow& RwWin)
 {
-	if (m_Height == NULL)
-		m_Height = 100;
-	if (m_Width == NULL)
-		m_Width = 100;
-	if (m_Height < 5)
-			m_Height = 5;
-	if (m_Width < 5)
-		m_Width = 5;
-	if (m_Color == Color(0,0,255))
-		btnImg.create(m_Width, m_Height, m_Color);
+	if (buttonHeight == NULL)
+		buttonHeight = 100;
+	if (buttonWidth == NULL)
+		buttonWidth = 100;
+	if (buttonHeight < 5)
+			buttonHeight = 5;
+	if (buttonWidth < 5)
+		buttonWidth = 5;
+	if (buttonColor == Color(0,0,255))
+		btnImg.create(buttonWidth, buttonHeight, buttonColor);
 
 	bool longitude;
-	for (int ery = 0; ery < m_Height; ery++) {
-		for (int erx = 0; erx < m_Width; erx++) {
-			if (((ery == 0 || ery == 1) || (ery == m_Height-2 || ery == m_Height - 1))) {
+	for (int ery = 0; ery < buttonHeight; ery++) {
+		for (int erx = 0; erx < buttonWidth; erx++) {
+			if (((ery == 0 || ery == 1) || (ery == buttonHeight-2 || ery == buttonHeight - 1))) {
 				longitude = true;
 			}
 			else {
@@ -121,7 +125,7 @@ void Button::draw(sf::RenderWindow& RwWin)
 			}
 			else {
 				if (longitude == false) {
-					if ((erx == 0 || erx == 1) || (erx == m_Width-2 || erx == m_Width-1)){
+					if ((erx == 0 || erx == 1) || (erx == buttonWidth-2 || erx == buttonWidth-1)){
 						btnImg.setPixel(erx, ery, Color(0,0,0));
 					}
 				}
